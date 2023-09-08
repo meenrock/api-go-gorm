@@ -24,3 +24,37 @@ func CreateUser(c *gin.Context) {
 	db.Create(&user)
 	c.JSON(201, user)
 }
+
+func GetAllUser(c *gin.Context) {
+	db, err := database.ConnectDBPostgres()
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to connect to the database", "detail": err.Error()})
+		return
+	}
+	defer db.Close()
+
+	var user models.User
+	if err := db.First(&user).Error; err != nil {
+		c.JSON(404, gin.H{"error": "User not found"})
+		return
+	}
+
+	c.JSON(200, user)
+}
+
+func GetUserById(c *gin.Context) {
+	db, err := database.ConnectDBPostgres()
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to connect to the database", "detail": err.Error()})
+		return
+	}
+	defer db.Close()
+
+	var user models.User
+	if err := db.First(&user).Error; err != nil {
+		c.JSON(404, gin.H{"error": "User not found"})
+		return
+	}
+
+	c.JSON(200, user)
+}

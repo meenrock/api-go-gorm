@@ -11,8 +11,8 @@ func SetupRouter() *gin.Engine {
 
 	// User routes
 	r.GET("/", controllers.WelcomeMessage)
-	r.GET("/users")
-	r.GET("/users/:id")
+	r.GET("/users", controllers.GetAllUser)
+	r.GET("/users/:id", controllers.GetUserById)
 	r.POST("/create", controllers.CreateUser)
 	r.PUT("/update")
 	r.DELETE("/delete/:id")
