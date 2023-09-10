@@ -33,8 +33,8 @@ func GetAllUser(c *gin.Context) {
 	}
 	defer db.Close()
 
-	var user models.User
-	if err := db.First(&user).Error; err != nil {
+	var user []models.User
+	if err := db.Find(&user).Error; err != nil {
 		c.JSON(404, gin.H{"error": "User not found"})
 		return
 	}
