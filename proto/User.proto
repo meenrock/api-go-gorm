@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package main;
+
+option go_package = "./proto";
+option java_multiple_files = true;
+option java_outer_classname = "io.grpc.examples.routeguide";
+option objc_class_prefix = "RTG";
+
+service UserService {
+  //User Grpc
+  rpc GetUser (UserRequest) returns (UserResponse);
+  rpc GetUserById (UserRequest) returns (UserResponse);
+  rpc EditUser (UserEditRequest) returns (UserResponse);
+  rpc CreateUser (stream UserCreateRequest) returns (stream UserResponse);
+  //Route Test
+}
+
+message UserRequest {
+  int32 id = 1;
+}
+
+message UserResponse {
+  int32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string nickName = 4;
+  string phoneNumber = 5;
+  string email = 6;
+  string sex = 7;
+  int32 age = 8;
+  float height = 9;
+  float weight = 10;
+  string allergicFood = 11;
+  string favFood = 12;
+  float expectedBMI = 13;
+}
+
+message UserCreateRequest{
+  string firstName = 2;
+  string lastName = 3;
+  string nickName = 4;
+  string phoneNumber = 5;
+  string email = 6;
+  string sex = 7;
+  int32 age = 8;
+  float height = 9;
+  float weight = 10;
+  string allergicFood = 11;
+  string favFood = 12;
+  float expectedBMI = 13;
+}
+
+message UserEditRequest {
+  int32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string nickName = 4;
+  string phoneNumber = 5;
+  string email = 6;
+  string sex = 7;
+  int32 age = 8;
+  float height = 9;
+  float weight = 10;
+  string allergicFood = 11;
+  string favFood = 12;
+  float expectedBMI = 13;
+}
+
+message Point {
+  int32 latitude = 1;
+  int32 longtitude = 2;
+}
+

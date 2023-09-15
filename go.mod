@@ -6,7 +6,8 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.5.1
-	google.golang.org/grpc v1.58.0
+	google.golang.org/grpc v1.58.1
+	google.golang.org/protobuf v1.31.0
 )
 
 require (
@@ -37,6 +38,7 @@ require (
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230913181813-007df8e322eb // indirect
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0 // indirect
-	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace google.golang.org/grpc => github.com/grpc/grpc-go v1.58.1
