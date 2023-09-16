@@ -34,6 +34,7 @@ func StartGrpcClient() {
 	defer cancel()
 	//r, err := c.GetUserGrpc(ctx, &pb.UserRequest{})
 	resp, err := c.GetUser(ctx, &pb.UserRequest{})
+
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}

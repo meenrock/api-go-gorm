@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	go client.StartGrpcClient()
 	go server.StartGrpcServer()
+	go client.StartGrpcClient()
 	r := routers.SetupRouter()
 	r.Run(":8080") // Replace with your desired port
 }

@@ -7,6 +7,8 @@ import (
 	"log"
 	"net"
 
+	"restapi/database"
+	"restapi/models"
 	pb "restapi/proto"
 
 	"google.golang.org/grpc"
@@ -20,11 +22,26 @@ type GrpcServerImpl struct {
 	pb.UnimplementedUserServiceServer
 }
 
-func (s *GrpcServerImpl) GetUserGrpc(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
+func (s *GrpcServerImpl) GetUser(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
 
-	response := &pb.UserResponse{
-		FirstName: "Supawat",
+	db, err := database.ConnectDBPostgres()
+	if err != nil {
+		return nil, err
 	}
+	defer db.Close()
+
+	var users []models.User
+	if err := db.Find(&users).Error; err != nil {
+		return nil, err
+	}
+
+	userResponses := make([]*pb.UserResponse, len(users))
+	for i, user := range users {
+		userResponses[i] = &pb.UserResponse{
+			FirstName: user.FirstName,
+		}
+	}
+	response := &pb.UserResponse{}
 
 	return response, nil
 }
