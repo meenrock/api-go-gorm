@@ -1,4 +1,4 @@
-package proto
+package server
 
 import (
 	"context"
@@ -22,7 +22,11 @@ type GrpcServerImpl struct {
 
 func (s *GrpcServerImpl) GetUserGrpc(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
 
-	return &pb.UserResponse{}, nil
+	response := &pb.UserResponse{
+		FirstName: "Supawat",
+	}
+
+	return response, nil
 }
 
 func StartGrpcServer() {

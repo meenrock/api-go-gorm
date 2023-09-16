@@ -12,12 +12,17 @@ service UserService {
   rpc GetUser (UserRequest) returns (UserResponse);
   rpc GetUserById (UserRequest) returns (UserResponse);
   rpc EditUser (UserEditRequest) returns (UserResponse);
-  rpc CreateUser (stream UserCreateRequest) returns (stream UserResponse);
+  rpc CreateUser (UserCreateRequest) returns (UserResponse);
+  rpc DeleteUser (UserRequest) returns (UserDeleteConfirmation);
   //Route Test
 }
 
 message UserRequest {
   int32 id = 1;
+}
+
+message UserDeleteConfirmation {
+    int32 id = 1;
 }
 
 message UserResponse {

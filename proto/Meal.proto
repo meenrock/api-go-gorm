@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package main;
+
+option go_package = "./proto";
+
+service MealService {
+    rpc GetUserBMI (RequestUserTime) returns (ResponseBMI);
+    
+}
+
+message RequestUserTime {
+    string startDate = 1;
+    string toDate = 2;
+}
+
+message ResponseBMI {
+    int32 id = 1;
+}
