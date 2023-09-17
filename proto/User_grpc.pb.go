@@ -31,7 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
 	// User Grpc
-	GetUser(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (UserService_GetUserClient, error)
+	GetUser(ctx context.Context, in *Empty, opts ...grpc.CallOption) (UserService_GetUserClient, error)
 	GetUserById(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	EditUser(ctx context.Context, in *UserEditRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	CreateUser(ctx context.Context, in *UserCreateRequest, opts ...grpc.CallOption) (*UserResponse, error)
@@ -46,7 +46,7 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) GetUser(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (UserService_GetUserClient, error) {
+func (c *userServiceClient) GetUser(ctx context.Context, in *Empty, opts ...grpc.CallOption) (UserService_GetUserClient, error) {
 	stream, err := c.cc.NewStream(ctx, &UserService_ServiceDesc.Streams[0], UserService_GetUser_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -119,7 +119,7 @@ func (c *userServiceClient) DeleteUser(ctx context.Context, in *UserRequest, opt
 // for forward compatibility
 type UserServiceServer interface {
 	// User Grpc
-	GetUser(*UserRequest, UserService_GetUserServer) error
+	GetUser(*Empty, UserService_GetUserServer) error
 	GetUserById(context.Context, *UserRequest) (*UserResponse, error)
 	EditUser(context.Context, *UserEditRequest) (*UserResponse, error)
 	CreateUser(context.Context, *UserCreateRequest) (*UserResponse, error)
@@ -131,7 +131,7 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) GetUser(*UserRequest, UserService_GetUserServer) error {
+func (UnimplementedUserServiceServer) GetUser(*Empty, UserService_GetUserServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
 func (UnimplementedUserServiceServer) GetUserById(context.Context, *UserRequest) (*UserResponse, error) {
@@ -160,7 +160,7 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 }
 
 func _UserService_GetUser_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(UserRequest)
+	m := new(Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}

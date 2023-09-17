@@ -9,13 +9,15 @@ option objc_class_prefix = "RTG";
 
 service UserService {
   //User Grpc
-  rpc GetUser (UserRequest) returns (stream UserResponseAll);
+  rpc GetUser (Empty) returns (stream UserResponseAll);
   rpc GetUserById (UserRequest) returns (UserResponse);
   rpc EditUser (UserEditRequest) returns (UserResponse);
   rpc CreateUser (UserCreateRequest) returns (UserResponse);
   rpc DeleteUser (UserRequest) returns (UserDeleteConfirmation);
   //Route Test
 }
+
+message Empty {}
 
 message UserRequest {
   int32 id = 1;
@@ -26,7 +28,6 @@ message UserDeleteConfirmation {
 }
 
 message UserResponseAll {
-    int32 id = 1;
     string firstName = 2;
     string lastName = 3;
     string nickName = 4;

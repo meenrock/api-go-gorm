@@ -31,18 +31,25 @@ func (s *GrpcServerImpl) GetUserById(ctx context.Context, req *pb.UserRequest) (
 	}
 	defer db.Close()
 
-	var users []models.User
-	if err := db.Find(&users).Error; err != nil {
+	var user models.User
+	if err := db.First(&user, req.Id).Error; err != nil {
 		return nil, err
 	}
 
-	userResponses := make([]*pb.UserResponse, len(users))
-	for i, user := range users {
-		userResponses[i] = &pb.UserResponse{
-			FirstName: user.FirstName,
-		}
+	// userResponses := make([]*pb.UserResponse, len(users))
+	// for i, user := range users {
+	// 	userResponses[i] = &pb.UserResponse{
+	// 		FirstName: user.FirstName,
+	// 		LastName:  user.LastName,
+	// 	}
+	// }
+	// response := &pb.UserResponse{}
+
+	response := &pb.UserResponse{
+		Id:        int32(user.ID),
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
 	}
-	response := &pb.UserResponse{}
 
 	return response, nil
 }
@@ -55,18 +62,29 @@ func (s *GrpcServerImpl) CreateUser(ctx context.Context, req *pb.UserCreateReque
 	}
 	defer db.Close()
 
-	var users []models.User
-	if err := db.Find(&users).Error; err != nil {
+	user := &models.User{
+		FirstName: req.FirstName,
+		LastName:  req.LastName,
+	}
+
+	if err := db.Create(user).Error; err != nil {
 		return nil, err
 	}
 
-	userResponses := make([]*pb.UserResponse, len(users))
-	for i, user := range users {
-		userResponses[i] = &pb.UserResponse{
-			FirstName: user.FirstName,
-		}
+	db.Create(&user)
+
+	// userResponses := make([]*pb.UserResponse, len(users))
+	// for i, user := range users {
+	// 	userResponses[i] = &pb.UserResponse{
+	// 		FirstName: user.FirstName,
+	// 		LastName:  user.LastName,
+	// 	}
+	// }
+	response := &pb.UserResponse{
+		Id:        int32(user.ID),
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
 	}
-	response := &pb.UserResponse{}
 
 	return response, nil
 }
