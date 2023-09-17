@@ -9,7 +9,7 @@ option objc_class_prefix = "RTG";
 
 service UserService {
   //User Grpc
-  rpc GetUser (UserRequest) returns (UserResponseAll);
+  rpc GetUser (UserRequest) returns (stream UserResponseAll);
   rpc GetUserById (UserRequest) returns (UserResponse);
   rpc EditUser (UserEditRequest) returns (UserResponse);
   rpc CreateUser (UserCreateRequest) returns (UserResponse);
@@ -88,8 +88,8 @@ message UserEditRequest {
   float expectedBMI = 13;
 }
 
-message Point {
-  int32 latitude = 1;
-  int32 longtitude = 2;
-}
+// message Point {
+//   int32 latitude = 1;
+//   int32 longtitude = 2;
+// }
 
