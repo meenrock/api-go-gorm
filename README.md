@@ -1,5 +1,5 @@
 # api-go-gorm
-### Features
+# Features
 
 - REST API Server
 - GRPC Server & Client
@@ -7,39 +7,26 @@
 	- MySQL Connector
 	- PostgreSQL Connector
 
-# api-go-gorm
+# About this project
 
+* Build a component for Microservice Architecture application based on Golang.
+* RESTful API Server and Grpc Server implementation
+* Integration Testing using Grpc Client implementation within application
+* Connect and execute ORM Function or SQL Query with Postgres and Mysql
 
+# Latest Release
+
+# Future Ideas Include
+
+* RabbitMQ Messaging Implementation for API Gateway
+* Monitoring and Logging Plugin
 
 ####Install Dependencies
 
-`$ `
+`$ go install`
 
 ####Data and Definition
 ```
 
-```
-
-                
-###Operation Flowchart
-
-```flow
-st=>start: Login
-op=>operation: Login operation
-cond=>condition: Successful Yes or No?
-e=>end: To admin
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
-
-###Sequence Diagram
-                    
-```seq
-Server->Client: Says Hello 
-Note right of Client: Client thinks\nabout it 
-Client-->Server: How are you? 
-Client->>Server: I am good thanks!
 ```
 
