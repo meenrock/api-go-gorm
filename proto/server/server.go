@@ -151,7 +151,6 @@ func (s *GrpcServerImpl) CreateUser(ctx context.Context, req *pb.UserCreateReque
 	db.Create(&user)
 
 	response := &pb.UserResponse{
-		Id:           int32(user.ID),
 		FirstName:    user.FirstName,
 		LastName:     user.LastName,
 		NickName:     user.NickName,
@@ -178,6 +177,7 @@ func (s *GrpcServerImpl) EditUser(ctx context.Context, req *pb.UserEditRequest) 
 	defer db.Close()
 
 	user := &models.User{
+		Id:           int(req.Id),
 		FirstName:    req.FirstName,
 		LastName:     req.LastName,
 		NickName:     req.NickName,

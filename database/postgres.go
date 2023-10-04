@@ -1,6 +1,7 @@
 package database
 
 import (
+	"database/sql"
 	"log"
 	"os"
 	"restapi/models"
@@ -33,4 +34,14 @@ func ConnectDBPostgres() (*gorm.DB, error) {
 	db.AutoMigrate(&models.User{})
 
 	return db, nil
+}
+
+func ExecuteQueryPostgres() (*sql.DB, error) {
+	db, err := sql.Open("postgres", "connection-string")
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	return db, err
 }

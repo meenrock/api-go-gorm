@@ -3,7 +3,6 @@ package database
 import (
 	"log"
 	"os"
-	"restapi/models"
 
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
@@ -31,7 +30,7 @@ func ConnectDBMySQL() (*gorm.DB, error) {
 	println(err)
 
 	defer db.Close()
-	db.AutoMigrate(&models.User{})
+	//db.AutoMigrate(&models.User{})
 
 	return db, nil
 }
