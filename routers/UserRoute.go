@@ -12,6 +12,7 @@ func SetupRouter() *gin.Engine {
 	// User routes
 	r.GET("/", controllers.WelcomeMessage)
 	r.GET("/users", controllers.GetAllUser)
+	r.GET("/usersnew", controllers.GetUserFavFood)
 	r.GET("/users/:id", controllers.GetUserById)
 	r.POST("/create", controllers.CreateUser)
 	r.PUT("/update/:id", controllers.UpdateUserById)
