@@ -3,6 +3,7 @@
 
 - REST API Server
 - GRPC Server & Client
+- RabbitMQ Producer & Consumer
 - Database Connector
 	- MySQL Connector
 	- PostgreSQL Connector
@@ -22,11 +23,11 @@
 * Monitoring and Logging Plugin
 * Authentication for Zero Trust Architectures
 
-####Install Dependencies
+#### Install Dependencies
 
 `$ go install`
 
-####For Development Dependencies Installation
+#### For Development Dependencies Installation
 ```
 go mod vendor
 ```
