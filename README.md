@@ -2,7 +2,7 @@
 
 - REST API Server
 - GRPC Server & Client
-- RabbitMQ Producer & Consumer
+- Asynchronous Messaging API
 - Database Connector
 	- MySQL Connector
 	- PostgreSQL Connector
