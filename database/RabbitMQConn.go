@@ -1,15 +1,11 @@
-package main
+package database
 
 import (
-	// client "restapi/proto/client"
 	"log"
 	"os"
-	queue "restapi/controllers/queue"
-	server "restapi/proto/server"
-	"restapi/routers"
 
 	"github.com/joho/godotenv"
-	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/streadway/amqp"
 )
 
 func failOnError(err error, msg string) {
@@ -38,16 +34,4 @@ func createRabbitMQConnection() (*amqp.Connection, *amqp.Channel) {
 	failOnError(err, "Failed to open a channel")
 
 	return conn, ch
-}
-
-func main() {
-	conn, ch := createRabbitMQConnection()
-	defer conn.Close()
-	defer ch.Close()
-
-	go server.StartGrpcServer()
-	// go client.StartGrpcClient()
-	go queue.ConsumeMessage(ch, "order_queue")
-	r := routers.SetupRouter()
-	r.Run(":8080") // Replace with your desired port
 }
