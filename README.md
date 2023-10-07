@@ -13,20 +13,21 @@
 * RESTful API Server and Grpc Server implementation
 * Integration Testing using Grpc Client implementation within application
 * Connect and execute ORM Function or SQL Query with Postgres and Mysql
+* RabbitMQ Messaging Implementation for API Gateway
 
 # Latest Release
 
 # Future Ideas Include
-
-* RabbitMQ Messaging Implementation for API Gateway
+* Kafka Messaging Implementation 
 * Monitoring and Logging Plugin
+* Authentication for Zero Trust Architectures
 
 ####Install Dependencies
 
 `$ go install`
 
-####Data and Definition
+####For Development Dependencies Installation
 ```
-
+go mod vendor
 ```
 
