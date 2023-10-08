@@ -16,16 +16,33 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func ConsumeMessage(ch *amqp.Channel, QueueName string) {
+func PublishMessage(ch *amqp.Channel, QueueName string, message string) {
 
 	ctx := context.Background()
-
-	err := ch.Qos(
-		1,     // prefetch count
-		0,     // prefetch size
-		false, // global
+	err := ch.PublishWithContext(
+		ctx,
+		"",        // exchange
+		QueueName, // routing key (queue name)
+		false,     // mandatory
+		false,     // immediate
+		amqp.Publishing{
+			ContentType: "text/plain",
+			Body:        []byte(message),
+		},
 	)
-	failOnError(err, "Failed to set QoS")
+	failOnError(err, "Failed to publish a message")
+
+	fmt.Printf(" [x] Sent: %s\n", message)
+}
+
+func ConsumeMessage(ch *amqp.Channel, QueueName string) {
+
+	// err := ch.Qos(
+	// 	1,     // prefetch count
+	// 	0,     // prefetch size
+	// 	false, // global
+	// )
+	// failOnError(err, "Failed to set QoS")
 
 	q, err := ch.QueueDeclare(
 		QueueName, // queue name
@@ -38,22 +55,6 @@ func ConsumeMessage(ch *amqp.Channel, QueueName string) {
 	failOnError(err, "Failed to declare a queue")
 
 	fmt.Printf(" [*] Waiting for messages in %s. To exit press CTRL+C\n", QueueName)
-
-	message := "Hello, RabbitMQ!"
-	err = ch.PublishWithContext(
-		ctx,
-		"",     // exchange
-		q.Name, // routing key (queue name)
-		false,  // mandatory
-		false,  // immediate
-		amqp.Publishing{
-			ContentType: "text/plain",
-			Body:        []byte(message),
-		},
-	)
-	failOnError(err, "Failed to publish a message")
-
-	fmt.Printf(" [x] Sent: %s\n", message)
 
 	msgs, err := ch.Consume(
 		q.Name, // queue

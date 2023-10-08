@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/streadway/amqp"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func failOnError(err error, msg string) {
@@ -14,7 +14,7 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func createRabbitMQConnection() (*amqp.Connection, *amqp.Channel) {
+func createRabbitMQConnection() *amqp.Channel {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("env unable to load")
@@ -29,9 +29,11 @@ func createRabbitMQConnection() (*amqp.Connection, *amqp.Channel) {
 
 	conn, err := amqp.Dial(dialStr)
 	failOnError(err, "Failed to connect to RabbitMQ")
+	defer conn.Close()
 
 	ch, err := conn.Channel()
 	failOnError(err, "Failed to open a channel")
+	defer ch.Close()
 
-	return conn, ch
+	return ch
 }
