@@ -14,7 +14,7 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func createRabbitMQConnection() *amqp.Channel {
+func CreateRabbitMQConnection() (*amqp.Connection, *amqp.Channel) {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("env unable to load")
@@ -29,11 +29,9 @@ func createRabbitMQConnection() *amqp.Channel {
 
 	conn, err := amqp.Dial(dialStr)
 	failOnError(err, "Failed to connect to RabbitMQ")
-	defer conn.Close()
 
 	ch, err := conn.Channel()
 	failOnError(err, "Failed to open a channel")
-	defer ch.Close()
 
-	return ch
+	return conn, ch
 }

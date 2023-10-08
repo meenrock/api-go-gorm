@@ -7,6 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type UserControllerInterface interface {
+	CreateUser(c *gin.Context)
+	GetAllUser(c *gin.Context)
+	GetUserById(c *gin.Context)
+	UpdateUserById(c *gin.Context)
+	DeleteUserById(c *gin.Context)
+}
+
 func CreateUser(c *gin.Context) {
 	db, err := database.ConnectDBPostgres()
 	if err != nil {

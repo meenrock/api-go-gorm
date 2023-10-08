@@ -86,3 +86,24 @@ func ConsumeMessage(ch *amqp.Channel, QueueName string) {
 	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 	<-forever
 }
+
+// func CreateRabbitMQComment(c *gin.Context) {
+// 	// Instantiate new Message struct
+// 	cmt := new(Comment)
+// 	if err := c.ShouldBindJSON(cmt); err != nil {
+// 		c.JSON(400, &gin.H{
+// 			"success": false,
+// 			"message": err,
+// 		})
+// 	}
+// 	// convert body into bytes and send it to kafka
+// 	cmtInBytes, err := json.Marshal(cmt)
+// 	PushCommentToQueue("comments", cmtInBytes)
+// 	// Return Comment in JSON format
+// 	if err != nil {
+// 		c.JSON(500, &gin.H{
+// 			"success": false,
+// 			"message": "Error creating product",
+// 		})
+// 	}
+// }
